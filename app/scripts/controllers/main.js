@@ -53,7 +53,6 @@ angular.module('mfGalleryApp').controller('MainCtrl',
 
       $scope.lightbox.imageUrl = Config.folder + '/' + currentAlbum + '/.thumbs/1000-' + $routeParams.i;
       $scope.lightbox.show = true;
-      console.log('updateLightboxByUrl ', $scope.lightbox);
     }
 
     /* scope vars */
@@ -79,8 +78,6 @@ angular.module('mfGalleryApp').controller('MainCtrl',
     });
 
     $scope.$on('widthChanged', function (event, newValue) {
-      console.log('Update image list');
-
       LinearPartitionService.fitPics($scope.ui.album.images, {
         containerWidth: newValue,
         preferedImageHeight: 300,
