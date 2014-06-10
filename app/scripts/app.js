@@ -17,7 +17,6 @@ angular
         resolve: {
           albumData: ['AlbumService', '$route', function (AlbumService, $route) {
             var currentAlbum = $route.current.params.album || '';
-            console.log('current album: ', currentAlbum);
             return AlbumService.getAlbums(currentAlbum);
           }]
         }

@@ -51,7 +51,7 @@ angular.module('mfGalleryApp').controller('MainCtrl',
         return;
       }
 
-      $scope.lightbox.imageUrl = Config.folder + '/' + currentAlbum + '/.thumbs/1000-' + $routeParams.i;
+      $scope.lightbox.imageUrl = Config.folder + '/' + currentAlbum + '/.thumbs/' + Config.thumbLightbox + '-' + $routeParams.i;
       $scope.lightbox.show = true;
     }
 
@@ -80,7 +80,7 @@ angular.module('mfGalleryApp').controller('MainCtrl',
     $scope.$on('widthChanged', function (event, newValue) {
       LinearPartitionService.fitPics($scope.ui.album.images, {
         containerWidth: newValue,
-        preferedImageHeight: 300,
+        preferedImageHeight: Config.preferedImageHeight,
         spacing: 4
       });
     });
@@ -105,7 +105,7 @@ angular.module('mfGalleryApp').controller('MainCtrl',
     };
 
     $scope.makeThumbUrl = function (imageName, sizeName, /*optional*/ subFolder) {
-      var size = sizeName === 'small' ? 400 : 1000;
+      var size = sizeName === 'small' ? Config.thumbSmall : Config.thumbLightbox;
       var sub = subFolder ? '/' + subFolder : '';
       return absPath + sub + '/.thumbs/' + size + '-' + imageName;
     };
