@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mfGalleryApp').directive('lightbox', function ($window) {
+angular.module('mfGalleryApp').directive('lightbox', function ($window, $document) {
 
   var CONFIG = {
     margin: 20,
@@ -66,6 +66,31 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window) {
         img.src = url;
       }
 
+      function onKeyDown(event) {
+        switch (event.keyCode) {
+        case 39:
+          // right arrow
+          scope.$apply(function () {
+            scope.nextImage(event);
+          });
+          break;
+        case 37:
+          // left arrow
+          scope.$apply(function () {
+            scope.prevImage(event);
+          });
+          break;
+        case 27:
+          // esc
+          scope.$apply(function () {
+            scope.close();
+          });
+          break;
+        default:
+          console.log('unhandled key', event.keyCode);
+        }
+      }
+
       scope.dialogSize = {
         width: '200px',
         height: '200px'
@@ -96,14 +121,26 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window) {
           show: scope.show
         };
       }, function (newValue) {
-        if (!newValue.show || !newValue.url || newValue.url === '') {
+        if (!newValue.show || !newValue.url || newValue.url === '') {
           return;
         }
         loadAndSetImage(newValue.url);
       }, true);
 
-      resetImgStyle();
+      scope.$watch('show', function (newValue) {
+        if (newValue) {
+          angular.element($document).on('keydown', onKeyDown);
+        } else {
+          angular.element($document).off('keydown', onKeyDown);
+        }
 
+      });
+
+      scope.$on('$destroy', function () {
+        angular.element($document).off('keydown', onKeyDown);
+      });
+
+      resetImgStyle();
     }
   };
 });
