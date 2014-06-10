@@ -1,0 +1,142 @@
+$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+
+//@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
+
+// bower:scss
+@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+// endbower
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.mf-gallery {
+
+  .album {
+    h1 {
+//      color: #999999;
+      font-size: 32px;
+      font-weight: normal;
+      line-height: 40px;
+    }
+
+    .description {
+//      color: #999999;
+      font-size: 18px;
+    }
+  }
+
+  .sub-albums {
+//      box-shadow: 6px 6px 5px #888;
+
+    img {
+      max-height: 150px;
+      max-width: 150px;
+    }
+
+    .no-cover {
+      width: 150px;
+      height: 113px;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      background: grey;
+      font-size: 4em;
+    }
+
+    .caption {
+      text-align: center;
+    }
+  }
+
+  .images {
+    li {
+      padding: 0;
+
+      img {
+        margin-bottom: 4px;
+        margin-right: 4px;
+
+        &.break {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .lightbox {
+
+    .modal {
+      display: block;
+    }
+
+    .modal-dialog {
+      margin: auto;
+    }
+
+    .image {
+      min-height: 200px;
+      background: center center no-repeat;
+      margin: auto;
+    }
+
+    .glyphicon {
+      color: #ffffff;
+      text-shadow: 0 1px 0 black;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    .nav-close {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      cursor: pointer;
+    }
+
+    .glyphicon-remove {
+      color: #fff;
+      font-size: 2em;
+      padding: 5px 5px 50px 50px;
+    }
+
+    .navigation {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      .nav-left, .nav-right {
+        width: 20%;
+        height: 100%;
+        display: table;
+        cursor: pointer;
+
+        .glyphicon {
+          display: table-cell;
+          vertical-align: middle;
+          font-size: 4em;
+        }
+      }
+
+      .nav-left {
+        float: left;
+      }
+      .nav-right {
+        float: right;
+        text-align: right;
+      }
+    }
+  }
+}

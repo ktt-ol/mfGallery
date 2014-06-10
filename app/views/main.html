@@ -1,0 +1,52 @@
+<div class="mf-gallery">
+
+    <div class="album">
+        <h1>{{ui.album.meta.name}}</h1>
+
+
+        <ol class="breadcrumb">
+            <li ng-repeat="item in ui.breadcrumb">
+                <a href="{{item.href}}">{{item.name}}</a>
+            </li>
+            <li class="active">{{ui.album.meta.name || '???' }}</li>
+        </ol>
+    </div>
+
+    <div class="sub-albums">
+        <ul class="list-inline">
+            <li ng-repeat="sub in ui.album.subDirs" class="thumbnail">
+                <a ng-href="{{makePath(sub)}}">
+                    <img ng-if="sub.cover" ng-src="{{makeThumbUrl(sub.cover, 'small', sub.folder)}}"/>
+
+                    <div class="no-cover" ng-if="!sub.cover">?</div>
+                    <div class="caption">
+                        {{sub.name || sub.folder}}
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="images">
+        <div class="no-images" ng-if="!ui.album.images.length">
+            Keine Fotos hier :(
+        </div>
+        <ul class="list-inline" ng-show="ui.album.images.length" container-width event-name="widthChanged">
+            <li ng-repeat="image in ui.album.images">
+                <!--{{image.name}}-->
+                <a ng-href="#/a/{{ui.relPath}}?i={{image.name}}">
+                    <!--ng-click="showInLightbox($index)"-->
+                    <img ng-src="{{makeThumbUrl(image.name, 'small')}}"
+                         ng-style="{ width: image.width +'px', height: image.height + 'px'}" ng-class="image.break ? 'break' :''"
+                         class="img-thumbnailx"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div lightbox="lightbox.imageUrl" show="lightbox.show" prev="prevImg()" next="nextImg()"></div>
+
+
+</div>

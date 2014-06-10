@@ -1,0 +1,21 @@
+<div class="lightbox" ng-show="show">
+    <div class="modal-backdrop fade" ng-class="{ 'in': show }"></div>
+    <div tabindex="-1" class="modal fade" ng-class="{ 'in': show }" ng-click="close($event)">
+        <div class="modal-dialog" ng-style="dialogSize">
+            <div class="modal-content">
+                <div class="image" ng-style="imgStyle"></div>
+            </div>
+            <div class="navigation" ng-style="imgSize" ng-show="imageLoaded">
+                <div class="nav-left" title="Previous image">
+                    <span class="glyphicon glyphicon-chevron-left" ng-click="prevImage($event)"></span>
+                </div>
+                <div class="nav-right" title="Next image">
+                    <span class="glyphicon glyphicon-chevron-right" ng-click="nextImage($event)"></span>
+                </div>
+            </div>
+            <div class="nav-close" title="Close">
+                <span class="glyphicon glyphicon-remove" ng-click="close($event)"></span>
+            </div>
+        </div>
+    </div>
+</div>
