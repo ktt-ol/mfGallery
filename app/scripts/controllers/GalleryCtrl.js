@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mfGalleryApp').controller('MainCtrl',
+angular.module('mfGalleryApp').controller('GalleryCtrl',
   function (albumData, $scope, $routeParams, $location, $window, Config, LinearPartitionService) {
 
     /* private */

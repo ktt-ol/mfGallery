@@ -13,7 +13,8 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
       imageUrl: '&lightbox',
       show: '=',
       onNext: '&next',
-      onPrev: '&prev'
+      onPrev: '&prev',
+      embedded: '@'
     },
     link: function (scope, element) {
 
@@ -33,6 +34,9 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         scope.imgSize.height = height + 'px';
         scope.imgStyle = angular.extend(scope.imgStyle, scope.imgSize);
 
+        if (scope.embedded) {
+          return;
+        }
         scope.dialogSize.width = (width + CONFIG.padding) + 'px';
         var heightWidthPadding = height + CONFIG.padding;
         var top = ($window.innerHeight - heightWidthPadding) / 2;
@@ -86,12 +90,12 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
             scope.close();
           });
           break;
-        default:
-          console.log('unhandled key', event.keyCode);
+//        default:
+//          console.log('unhandled key', event.keyCode);
         }
       }
 
-      scope.dialogSize = {
+      scope.dialogSize = scope.embedded ? {} : {
         width: '200px',
         height: '200px'
       };
@@ -101,6 +105,9 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
       scope.imageLoaded = false;
 
       scope.close = function () {
+        if (scope.embedded) {
+          return;
+        }
         scope.show = false;
         resetImgStyle();
       };

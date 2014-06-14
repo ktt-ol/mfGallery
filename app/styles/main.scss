@@ -79,13 +79,19 @@ body {
       display: block;
     }
 
-    .modal-dialog {
+    .dialog {
+      position: relative;
+    }
+
+    &.lbmodal .dialog {
       margin: auto;
     }
 
     .image {
       min-height: 200px;
       background: center center no-repeat;
+    }
+    &.lbmodal .image {
       margin: auto;
     }
 

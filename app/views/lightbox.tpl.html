@@ -1,8 +1,8 @@
-<div class="lightbox" ng-show="show">
-    <div class="modal-backdrop fade" ng-class="{ 'in': show }"></div>
-    <div tabindex="-1" class="modal fade" ng-class="{ 'in': show }" ng-click="close($event)">
-        <div class="modal-dialog" ng-style="dialogSize">
-            <div class="modal-content">
+<div class="lightbox" ng-show="show" ng-class="{ 'embedded': embedded, 'lbmodal': !embedded }">
+    <div class="modal-backdrop fade" ng-class="{ 'in': show }" ng-if="!embedded"></div>
+    <div tabindex="-1" class="fade" ng-class="{ 'in': show, 'modal': !embedded }" ng-click="close($event)">
+        <div ng-style="dialogSize" class="dialog">
+            <div ng-class="{ 'modal-content': !embedded }" onselect="return false">
                 <div class="image" ng-style="imgStyle"></div>
             </div>
             <div class="navigation" ng-style="imgSize" ng-show="imageLoaded">
@@ -13,7 +13,7 @@
                     <span class="glyphicon glyphicon-chevron-right" ng-click="nextImage($event)"></span>
                 </div>
             </div>
-            <div class="nav-close" title="Close">
+            <div class="nav-close" title="Close" ng-if="!embedded">
                 <span class="glyphicon glyphicon-remove" ng-click="close($event)"></span>
             </div>
         </div>
