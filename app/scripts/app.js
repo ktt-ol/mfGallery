@@ -10,8 +10,7 @@ angular
   .config(function ($routeProvider) {
 
     var albumData = ['AlbumService', '$route', function (AlbumService, $route) {
-      var currentAlbum = $route.current.params.album || '';
-      return AlbumService.getAlbums(currentAlbum);
+      return AlbumService.loadInitialAlbum($route.current.params.album);
     }];
 
     $routeProvider
