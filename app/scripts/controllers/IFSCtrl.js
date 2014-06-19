@@ -7,9 +7,7 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
 
     // based on current index!
     function updateLightbox() {
-      console.log('currentIndex', currentIndex);
       if (!albumData.images[currentIndex]) {
-        console.log('no image');
         $scope.lightbox.show = false;
         return;
       }
@@ -37,15 +35,12 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
     }
 
     function findImageIndexObjByName(imageName) {
-      console.log('findImageIndexObjByName', imageName, albumData.images);
       for (var i = 0; i < albumData.images.length; i++) {
-        console.log('test', albumData.images[i].name, imageName);
         if (albumData.images[i].name === imageName) {
           return i;
         }
 
       }
-      console.log('nothing found');
       return null;
     }
 
@@ -59,7 +54,6 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
     };
 
     $scope.$on('$locationChangeSuccess', function () {
-      console.log('new nav');
       if ($routeParams.i) {
         currentIndex = findImageIndexObjByName($routeParams.i);
       } else {
