@@ -13,9 +13,12 @@ body {
 
 .mf-gallery {
 
+  .caption {
+    text-align: center;
+  }
+
   .album {
     h1 {
-//      color: #999999;
       font-size: 32px;
       font-weight: normal;
       line-height: 40px;
@@ -23,7 +26,6 @@ body {
 
     .description {
 //      color: #999999;
-      font-size: 18px;
     }
   }
 
@@ -43,10 +45,6 @@ body {
       text-align: center;
       background: grey;
       font-size: 4em;
-    }
-
-    .caption {
-      text-align: center;
     }
   }
 
@@ -137,4 +135,11 @@ body {
       }
     }
   }
+}
+
+footer {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
 }

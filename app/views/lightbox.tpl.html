@@ -1,15 +1,15 @@
 <div class="lightbox" ng-show="show" ng-class="{ 'embedded': embedded, 'lbmodal': !embedded }">
     <div class="modal-backdrop fade" ng-class="{ 'in': show }" ng-if="!embedded"></div>
-    <div tabindex="-1" class="fade" ng-class="{ 'in': show, 'modal': !embedded }" ng-click="close($event)">
-        <div ng-style="dialogSize" class="dialog">
-            <div ng-class="{ 'modal-content': !embedded }" onselect="return false">
+    <div tabindex="-1" class="fade" ng-class="{ 'in': show, 'modal': !embedded }" ng-click="close($event)" onmousedown='return false;'>
+        <div ng-style="dialogSize" class="dialog" style="margin: auto">
+            <div ng-class="{ 'modal-content': !embedded }" onmousedown='return false;'>
                 <div class="image" ng-style="imgStyle"></div>
             </div>
-            <div class="navigation" ng-style="imgSize" ng-show="imageLoaded">
-                <div class="nav-left" title="Previous image">
+            <div class="navigation" ng-style="imgSize" ng-show="imageLoaded" onmousedown='return false;'>
+                <div class="nav-left" title="Previous image [ <-- ]">
                     <span class="glyphicon glyphicon-chevron-left" ng-click="prevImage($event)"></span>
                 </div>
-                <div class="nav-right" title="Next image">
+                <div class="nav-right" title="Next image [ --> ]">
                     <span class="glyphicon glyphicon-chevron-right" ng-click="nextImage($event)"></span>
                 </div>
             </div>

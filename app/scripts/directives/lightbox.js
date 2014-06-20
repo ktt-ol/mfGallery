@@ -35,6 +35,7 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         scope.imgStyle = angular.extend(scope.imgStyle, scope.imgSize);
 
         if (scope.embedded) {
+          scope.dialogSize = scope.imgSize;
           return;
         }
         scope.dialogSize.width = (width + CONFIG.padding) + 'px';
@@ -104,7 +105,7 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
       };
       scope.imageLoaded = false;
 
-      scope.close = function () {
+      scope.close = function (event) {
         if (scope.embedded) {
           return;
         }

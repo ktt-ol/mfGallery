@@ -1,7 +1,9 @@
-<div class="mf-gallery">
+<div class="mf-gallery mf-gallery-ifs">
 
-    <a ng-href="#/a/">Alle anzeigen</a>
+    <a ng-href="#/a/" class="btn btn-default">Alle anzeigen</a>
 
     <div lightbox="lightbox.imageUrl" show="lightbox.show" prev="prevImg()" next="nextImg()" embedded="true"></div>
-    {{ui.currentImage.name}}
+    <div class="caption">{{ui.currentImage.name}}</div>
 </div>
+
+<div ng-include="'views/footer.tpl.html'"></div>
