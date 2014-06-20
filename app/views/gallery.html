@@ -1,6 +1,6 @@
 <div class="mf-gallery">
 
-    <div class="album">
+    <div class="album" ng-if="!ui.ifsMode">
         <h1>{{ui.album.meta.name}}</h1>
 
 
@@ -12,7 +12,7 @@
         </ol>
     </div>
 
-    <div class="sub-albums">
+    <div class="sub-albums" ng-if="!ui.ifsMode">
         <ul class="list-inline">
             <li ng-repeat="sub in ui.album.subDirs" class="thumbnail">
                 <a ng-href="{{makePath(sub)}}">

@@ -12,10 +12,9 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
+
+    <!-- build:css({.tmp,app}) styles/bootstrap-custom.css -->
+    <link rel="stylesheet" href="styles/bootstrap-custom.css">
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -37,14 +36,17 @@
     </div>
 </div>
 
+<!-- build:js scripts/ie_extras.js -->
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
 <script src="bower_components/json3/lib/json3.min.js"></script>
 <![endif]-->
+<!-- endbuild -->
 
 <script type="text/javascript">
     var mfGalleryConfig = {
-        folder: 'images/album1',
+        staticPath: '',
+        folder: 'test-album/album1',
         mode: 'ifs',
         preferedImageHeight: 300,
         thumbSmall: 400,
@@ -54,28 +56,11 @@
 </script>
 
 <!-- build:js scripts/vendor.js -->
-<!-- bower:js -->
-<!--<script src="bower_components/jquery/dist/jquery.js"></script>-->
-<!--<script src="bower_components/jquery-colorbox/jquery.colorbox.js"></script>-->
 <script src="bower_components/angular/angular.js"></script>
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/button.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/carousel.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/transition.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/modal.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tooltip.js"></script>-->
-<!--<script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/popover.js"></script>-->
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-inview/angular-inview.js"></script>
-<!--<script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>-->
 <script src="bower_components/ng-debounce/angular-debounce.js"></script>
-<!-- endbower -->
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->

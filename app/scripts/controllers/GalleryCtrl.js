@@ -58,6 +58,7 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
     /* scope vars */
 
     $scope.ui = {
+      ifsMode: Config.mode === 'ifs',
       relPath: currentAlbum,
       breadcrumb: [],
       album: albumData,

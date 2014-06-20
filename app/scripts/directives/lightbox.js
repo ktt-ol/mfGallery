@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mfGalleryApp').directive('lightbox', function ($window, $document) {
+angular.module('mfGalleryApp').directive('lightbox', function ($window, $document, Config) {
 
   var CONFIG = {
     margin: 20,
@@ -25,7 +25,7 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         };
 
         scope.imgStyle = angular.extend({
-          'background-image': 'url(images/ajax-loader.gif)'
+          'background-image': 'url(' + Config.staticPath + 'images/ajax-loader.gif)'
         }, scope.imgSize);
       }
 
@@ -46,7 +46,7 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
 
       function loadAndSetImage(url) {
         scope.imageLoaded = false;
-        scope.imgStyle['background-image'] = 'url(images/ajax-loader.gif)';
+        scope.imgStyle['background-image'] = 'url(' + Config.staticPath + 'images/ajax-loader.gif)';
 
         var img = new Image();
         img.onload = function () {

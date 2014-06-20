@@ -3,5 +3,7 @@ dist
 .tmp
 .sass-cache
 app/bower_components
-app/images/
+app/test-album/
 .idea
+syncToHyde.sh
+.DS_Store
