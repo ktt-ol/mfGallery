@@ -1,6 +1,10 @@
 <div class="mf-gallery mf-gallery-ifs">
 
-    <a ng-href="#/a/" class="btn btn-default show-all-button">Alle anzeigen</a>
+    <div class="header-line">
+        <a ng-href="#/a/" class="btn btn-default show-all-button">Alle anzeigen</a>
+
+        <span class="item-pos pull-right">{{ui.currentIndex + 1}}/{{ui.size}}</span>
+    </div>
 
     <div lightbox="lightbox.imageUrl" show="lightbox.show" prev="prevImg()" next="nextImg()" embedded="true"></div>
     <div class="caption">{{ui.currentImage.name}}</div>

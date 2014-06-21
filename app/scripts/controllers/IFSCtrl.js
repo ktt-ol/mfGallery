@@ -3,16 +3,14 @@
 angular.module('mfGalleryApp').controller('IFSCtrl',
   function (albumData, $scope, $routeParams, $location, Config) {
 
-    var currentIndex = null;
-
     // based on current index!
     function updateLightbox() {
-      if (!albumData.images[currentIndex]) {
+      if (!albumData.images[$scope.ui.currentIndex]) {
         $scope.lightbox.show = false;
         return;
       }
 
-      $scope.ui.currentImage = albumData.images[currentIndex];
+      $scope.ui.currentImage = albumData.images[$scope.ui.currentIndex];
 
       $scope.lightbox.imageUrl = Config.folder + '/.thumbs/' + Config.thumbLightbox + '-' + $scope.ui.currentImage.name;
       $scope.lightbox.show = true;
@@ -24,13 +22,13 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
       }
 
       if ($routeParams.i) {
-        currentIndex = findImageIndexObjByName($routeParams.i);
-        if (currentIndex) {
+        $scope.ui.currentIndex = findImageIndexObjByName($routeParams.i);
+        if ($scope.ui.currentIndex) {
           updateLightbox();
           return;
         }
       }
-      currentIndex = 0;
+      $scope.ui.currentIndex = 0;
       updateLightbox();
     }
 
@@ -45,7 +43,9 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
     }
 
     $scope.ui = {
-      currentImage: {}
+      currentImage: {},
+      size: albumData.images.length,
+      currentIndex: null
     };
 
     $scope.lightbox = {
@@ -55,9 +55,9 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
 
     $scope.$on('$locationChangeSuccess', function () {
       if ($routeParams.i) {
-        currentIndex = findImageIndexObjByName($routeParams.i);
+        $scope.ui.currentIndex = findImageIndexObjByName($routeParams.i);
       } else {
-        currentIndex = 0;
+        $scope.ui.currentIndex = 0;
       }
 
       updateLightbox();
@@ -67,12 +67,12 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
     showInitialImage();
 
     $scope.prevImg = function () {
-      var newIndex = (currentIndex - 1 + albumData.images.length) % albumData.images.length;
+      var newIndex = ($scope.ui.currentIndex - 1 + albumData.images.length) % albumData.images.length;
       $location.search('i', albumData.images[newIndex].name);
     };
 
     $scope.nextImg = function () {
-      var newIndex = (currentIndex + 1) % albumData.images.length;
+      var newIndex = ($scope.ui.currentIndex + 1) % albumData.images.length;
       $location.search('i', albumData.images[newIndex].name);
     };
 

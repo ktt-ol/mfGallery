@@ -143,8 +143,16 @@ body {
 }
 
 .mf-gallery-ifs {
-  .show-all-button {
+
+  .header-line {
     margin-bottom: 10px;
+
+    .item-pos {
+      background: whitesmoke;
+      font-size: 1.2em;
+      padding: 4px 8px;
+      border-radius: 2px;
+    }
   }
 }
 
