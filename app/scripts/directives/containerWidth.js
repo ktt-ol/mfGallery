@@ -4,7 +4,7 @@ angular.module('mfGalleryApp').directive('containerWidth', function ($rootScope,
 
   return {
     scope: {
-      eventName: '@'
+      eventName: '@containerWidth'
     },
     link: function (scope, element) {
 

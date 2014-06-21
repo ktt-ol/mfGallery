@@ -187,9 +187,7 @@ angular.module('mfGalleryApp').service('LinearPartitionService', function () {
           var image = rowBuffer[j];
           image.width = parseInt(rowWidth / summedRatios * image.aspectRatio, 10);
           image.height = parseInt(rowWidth / summedRatios, 10);
-          if (j === rowBuffer.length - 1) {
-            image.break = true;
-          }
+          image.break = (j === rowBuffer.length - 1);
         }
       }
     }

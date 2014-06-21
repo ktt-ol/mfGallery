@@ -32,14 +32,10 @@
         <div class="no-images" ng-if="!ui.album.images.length">
             Keine Fotos hier :(
         </div>
-        <ul class="list-inline" ng-show="ui.album.images.length" container-width event-name="widthChanged">
+        <ul class="list-inline" ng-show="ui.album.images.length" container-width="widthChanged">
             <li ng-repeat="image in ui.album.images">
-                <!--{{image.name}}-->
                 <a ng-href="#/a/{{ui.relPath}}?i={{image.name}}">
-                    <!--ng-click="showInLightbox($index)"-->
-                    <img ng-src="{{makeThumbUrl(image.name, 'small')}}"
-                         ng-style="{ width: image.width +'px', height: image.height + 'px'}" ng-class="image.break ? 'break' :''"
-                         class="img-thumbnailx"/>
+                    <div gallery-item="image" listen-on="widthChanged" url="{{makeThumbUrl(image.name, 'small')}}"></div>
                 </a>
             </li>
         </ul>

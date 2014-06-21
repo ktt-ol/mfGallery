@@ -4,11 +4,10 @@ angular
   .module('mfGalleryApp', [
     'ngSanitize',
     'ngRoute',
-    'debounce'
-//    'ui.bootstrap'
+    'debounce',
+    'angular-inview'
   ])
   .config(function ($routeProvider) {
-
     var albumData = ['AlbumService', '$route', function (AlbumService, $route) {
       return AlbumService.loadInitialAlbum($route.current.params.album);
     }];

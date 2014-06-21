@@ -51,13 +51,18 @@ body {
   .images {
     li {
       padding: 0;
+      vertical-align: middle;
 
-      img {
+      .gallery-image {
         margin-bottom: 4px;
         margin-right: 4px;
 
         &.break {
           margin-right: 0;
+        }
+
+        &.waiting {
+          background: url('../images/ajax-loader.gif') center center no-repeat;
         }
       }
     }

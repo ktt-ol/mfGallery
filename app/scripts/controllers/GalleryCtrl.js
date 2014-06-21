@@ -122,4 +122,9 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
       var newIndex = (index + 1) % $scope.ui.album.images.length;
       $location.search('i', $scope.ui.album.images[newIndex].name);
     };
+
+    $scope.yeah = function (inview, name, element) {
+      console.log('yeah!', inview, name);
+      angular.element(element).unbind('scroll');
+    };
   });
