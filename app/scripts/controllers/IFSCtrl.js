@@ -50,7 +50,8 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
 
     $scope.lightbox = {
       imageUrl: '',
-      show: false
+      show: false,
+      imgSize: {}
     };
 
     $scope.$on('$locationChangeSuccess', function () {

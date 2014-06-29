@@ -14,7 +14,16 @@ body {
 .mf-gallery {
 
   .caption {
-    text-align: center;
+    margin: auto;
+
+    .time {
+      text-align: left;
+      padding-left: 0;
+    }
+    .name {
+      text-align: right;
+      padding-right: 0;
+    }
   }
 
   .album {

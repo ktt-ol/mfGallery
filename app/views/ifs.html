@@ -6,8 +6,11 @@
         <span class="item-pos pull-right">{{ui.currentIndex + 1}}/{{ui.size}}</span>
     </div>
 
-    <div lightbox="lightbox.imageUrl" show="lightbox.show" prev="prevImg()" next="nextImg()" embedded="true"></div>
-    <div class="caption">{{ui.currentImage.name}}</div>
+    <div lightbox="lightbox.imageUrl" show="lightbox.show" prev="prevImg()" next="nextImg()" embedded="true" size-update="lightbox.imgSize"></div>
+    <div class="caption row" ng-style="{width: lightbox.imgSize.width}">
+        <div class="time col-xs-6">{{ui.currentImage.exif.time | date:'medium' }}</div>
+        <div class="name col-xs-6">{{ui.currentImage.name}}</div>
+    </div>
 </div>
 
 <div ng-include="'views/footer.tpl.html'"></div>
