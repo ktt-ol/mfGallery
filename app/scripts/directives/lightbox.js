@@ -57,7 +57,7 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         var img = new Image();
         img.onload = function () {
           scope.$apply(function () {
-            scope.imgStyle['background-image'] = 'url(' + url + ')';
+            scope.imgStyle['background-image'] = 'url("' + url + '")';
             scope.imageLoaded = true;
             var windowHWQ = $window.innerHeight / $window.innerWidth;
             var imgHWQ = img.height / img.width;
