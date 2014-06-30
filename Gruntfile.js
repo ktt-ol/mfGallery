@@ -162,7 +162,11 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+          generatedImagesDir: '<%= yeoman.dist %>/images/generated',
+          // changed to production to enable the compression
+          environment: 'production',
+          // changed to dist dir, to skip the cssmin
+          cssDir: '<%= yeoman.dist %>/styles/'
         }
       },
       server: {
@@ -197,8 +201,9 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat', 'uglifyjs'],
-              css: ['cssmin']
+              js: ['concat', 'uglifyjs']
+              // compass does the job now!
+              // css: ['cssmin']
             },
             post: {}
           }
@@ -212,7 +217,11 @@ module.exports = function (grunt) {
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>'],
+        assetsDirs: [
+          '<%= yeoman.dist %>',
+          // https://github.com/yeoman/yeoman/issues/824#issuecomment-29137057
+          '<%= yeoman.dist %>/images'
+        ],
         patterns: {
           js: [
             [/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']
