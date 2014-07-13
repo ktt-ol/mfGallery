@@ -12,7 +12,7 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
 
       $scope.ui.currentImage = albumData.images[$scope.ui.currentIndex];
 
-      $scope.lightbox.imageUrl = Config.folder + '/.thumbs/' + Config.thumbLightbox + '-' + $scope.ui.currentImage.name;
+      $scope.lightbox.image = $scope.ui.currentImage;
       $scope.lightbox.show = true;
     }
 
@@ -49,9 +49,9 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
     };
 
     $scope.lightbox = {
-      imageUrl: '',
-      show: false,
-      imgSize: {}
+      image: null,
+      folderPath: '',
+      boxSize: {}
     };
 
     $scope.$on('$locationChangeSuccess', function () {

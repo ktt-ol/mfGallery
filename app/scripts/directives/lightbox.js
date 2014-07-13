@@ -10,7 +10,8 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
   return {
     templateUrl: 'views/lightbox.tpl.html',
     scope: {
-      imageUrl: '&lightbox',
+      image: '=lightbox',
+      folderPath: '=',
       show: '=',
       onNext: '&next',
       onPrev: '&prev',
@@ -50,9 +51,12 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         scope.dialogSize.top = top + 'px';
       }
 
-      function loadAndSetImage(url) {
+      function loadAndSetImage() {
         scope.imageLoaded = false;
         scope.imgStyle['background-image'] = 'url(' + Config.staticPath + 'images/ajax-loader.gif)';
+
+        scope.originalUrl = makeOriginalUrl();
+        var url = makeUrl();
 
         var img = new Image();
         img.onload = function () {
@@ -74,6 +78,23 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
 
         };
         img.src = url;
+      }
+
+      function getAlbum() {
+        var album = scope.folderPath;
+        // if album present, it must start with /
+        if (angular.isString(album) && album.length > 0 && album.indexOf('/') !== 0) {
+          album = '/' + album;
+        }
+        return album;
+      }
+
+      function makeUrl() {
+        return Config.folder + getAlbum() + '/.thumbs/' + Config.thumbLightbox + '-' + scope.image.name;
+      }
+
+      function makeOriginalUrl() {
+        return Config.folder + getAlbum() + '/' + scope.image.name;
       }
 
       function onKeyDown(event) {
@@ -105,10 +126,11 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         width: '200px',
         height: '200px'
       };
-
       scope.imgSize = {
       };
       scope.imageLoaded = false;
+      scope.originalUrl = '#';
+      scope.visibleExifMeta = [ 'make', 'model'];
 
       scope.close = function (event) {
         if (scope.embedded) {
@@ -128,16 +150,21 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         scope.onNext();
       };
 
+      scope.toggleMeta = function (event) {
+        event.stopPropagation();
+        scope.showMeta = !scope.showMeta;
+      };
+
       scope.$watch(function () {
         return {
-          url: scope.imageUrl(),
+          image: scope.image,
           show: scope.show
         };
       }, function (newValue) {
-        if (!newValue.show || !newValue.url || newValue.url === '') {
+        if (!newValue.show || !newValue.image) {
           return;
         }
-        loadAndSetImage(newValue.url);
+        loadAndSetImage();
       }, true);
 
       scope.$watch('show', function (newValue) {

@@ -39,13 +39,9 @@ body {
       line-height: 40px;
     }
 
-    .description {
-//      color: #999999;
-    }
   }
 
   .sub-albums {
-//      box-shadow: 6px 6px 5px #888;
 
     img {
       max-height: 150px;
@@ -105,55 +101,100 @@ body {
       margin: auto;
     }
 
-    .glyphicon {
-      color: #ffffff;
-      text-shadow: 0 1px 0 black;
-      opacity: 0.5;
+    .controls {
 
-      &:hover {
-        opacity: 0.9;
+      .glyphicon {
+        color: #ffffff;
+        text-shadow: 0 1px 0 black;
+        opacity: 0.5;
       }
-    }
 
-    .nav-close {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      cursor: pointer;
-    }
+      & > * {
+        position: absolute;
+        color: #fff;
+      }
 
-    .glyphicon-remove {
-      color: #fff;
-      font-size: 2em;
-      padding: 5px 5px 50px 50px;
-    }
-
-    .navigation {
-      position: absolute;
-      top: 0;
-      left: 0;
-
-      .nav-left, .nav-right {
-        width: 20%;
-        height: 100%;
-        display: table;
+      .close {
+        top: 5px;
+        right: 5px;
+        font-size: 40px;
         cursor: pointer;
+        z-index: 11;
 
-        .glyphicon {
-          display: table-cell;
-          vertical-align: middle;
-          font-size: 4em;
+        &:hover .glyphicon {
+          opacity: 0.9;
         }
       }
 
-      .nav-left {
-        float: left;
+      $font-size: 60px;
+      .previous {
+        left: 0;
+        top: 0;
+        width: 30%;
+        height: 100%;
+
+        .glyphicon {
+          left: 0;
+        }
       }
-      .nav-right {
-        float: right;
-        text-align: right;
+      .next {
+        right: 0;
+        top: 0;
+        width: 70%;
+        height: 100%;
+
+        .glyphicon {
+          right: 0;
+        }
+      }
+
+      .nav {
+        z-index: 10;
+
+        .glyphicon {
+          font-size: $font-size;
+          top: calc(50% - #{$font-size / 2});
+          cursor: pointer;
+          position: absolute;
+        }
+
+        &:hover .glyphicon {
+          opacity: 0.9;
+        }
+      }
+
+      .info {
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        z-index: 11;
+
+        .text {
+          font-size: 20px;
+        }
+        .show-original {
+          float: right;
+          font-size: 20px;
+          padding: 0 10px;
+        }
+
+        & > * {
+          opacity: 0.5;
+        }
+
+        &:hover * {
+          opacity: 1;
+        }
+
+        &.open {
+          height: 75px;
+        }
+
       }
     }
+
   }
 }
 

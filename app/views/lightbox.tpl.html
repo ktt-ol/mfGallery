@@ -5,17 +5,30 @@
             <div ng-class="{ 'modal-content': !embedded }" onmousedown='return false;'>
                 <div class="image" ng-style="imgStyle"></div>
             </div>
-            <div class="navigation" ng-style="imgSize" ng-show="imageLoaded" onmousedown='return false;'>
-                <div class="nav-left" title="Previous image [ <-- ]">
-                    <span class="glyphicon glyphicon-chevron-left" ng-click="prevImage($event)"></span>
+            <div class="controls" ng-style="imgSize" ng-show="imageLoaded" onmousedown='return false;'>
+                <div ng-if="!embedded" ng-click="close($event)" class="close" title="Close">
+                    <span class="glyphicon glyphicon-remove"></span>
                 </div>
-                <div class="nav-right" title="Next image [ --> ]">
-                    <span class="glyphicon glyphicon-chevron-right" ng-click="nextImage($event)"></span>
+                <div class="nav previous" ng-click="prevImage($event)" title="Previous image [ <-- ]">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
                 </div>
-            </div>
-            <div class="nav-close" title="Close" ng-if="!embedded">
-                <span class="glyphicon glyphicon-remove" ng-click="close($event)"></span>
+                <div class="nav next" ng-click="nextImage($event)" title="Next image [ --> ]">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                </div>
+                <div class="info" ng-class="{'open': showMeta }" ng-click="toggleMeta($event)" title="show/hide more meta info  ">
+                    <span class="text">{{image.name}} // {{image.exif.time | date:'dd.MM.yyyy hh:mm:ss'}}</span>
+                    <a ng-href="{{originalUrl}}"  title="Show original" class="show-original" ng-click="$event.stopPropagation()">
+                        <span class="glyphicon glyphicon-download-alt"></span>
+                    </a>
+
+                    <div ng-if="showMeta">
+                        <span ng-repeat="field in visibleExifMeta">
+                            {{field}}: {{image.exif[field]}} <span ng-if="!$last" class="spacer"> ~ </span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 </div>

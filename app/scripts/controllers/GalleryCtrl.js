@@ -45,13 +45,29 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
       }
     }
 
+    function getImageObj(imageName) {
+      if (!imageName) {
+        return null;
+      }
+
+      for (var i=0; i<albumData.images.length; i++) {
+        if (albumData.images[i].name === imageName) {
+          return albumData.images[i];
+        }
+      }
+
+      return null;
+    }
+
     function updateLightboxByUrl() {
-      if (!$routeParams.i) {
+      var image = getImageObj($routeParams.i);
+      if (!image) {
         $scope.lightbox.show = false;
         return;
       }
 
-      $scope.lightbox.imageUrl = Config.folder + '/' + currentAlbum + '/.thumbs/' + Config.thumbLightbox + '-' + $routeParams.i;
+      $scope.lightbox.image = image;
+      $scope.lightbox.folderPath = '/' + currentAlbum;
       $scope.lightbox.show = true;
     }
 
@@ -67,8 +83,10 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
     };
 
     $scope.lightbox = {
-      imageUrl: null,
-      show: false
+      show: false,
+      image: null,
+      folderPath: '',
+      imageSize: Config.thumbLightbox
     };
 
     $scope.$watch('lightbox.show', function (newValue) {
