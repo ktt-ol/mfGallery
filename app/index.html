@@ -16,26 +16,37 @@
     <!-- build:css({.tmp,app}) styles/bootstrap-custom.css -->
     <link rel="stylesheet" href="styles/bootstrap-custom.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="styles/demoPage.css">
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
-<body ng-app="mfGalleryApp">
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to
-    improve your experience.</p>
-<![endif]-->
+<body>
 
-<div class="panel panel-default">
+<div class="container">
+<!--<div class="row">-->
+<!--<div class="col-md-3 col-md-push-9">-->
+    <!--sidebar content-->
+<!--</div>-->
+<!--<div class="col-md-9 col-md-pull-3">-->
+
+<div class="panel panel-default mf-gallery-app" ng-app="mfGalleryApp">
     <div class="panel-heading">
         <h3 class="panel-title">Album</h3>
     </div>
     <div class="panel-body">
-        <!-- Add your site or application content here -->
-        <div class="container-fluid" ng-view=""></div>
+        <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to
+            improve your experience.</p>
+        <![endif]-->
+        <div ng-view=""></div>
+        <!--class="container-fluid" raus!-->
     </div>
 </div>
 
+<!--</div>-->
+<!--</div>-->
+</div>
 <!-- build:js scripts/ie_extras.js -->
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -46,12 +57,12 @@
 <script type="text/javascript">
     var mfGalleryConfig = {
         staticPath: '',
-//        folder: 'test-album/album1/sub1',
-        folder: 'test-album/album1',
+//        folder: 'test-album/ifs_testdata',
+        folder: 'test-album/album_testdata',
 //        mode: 'ifs',
         preferedImageHeight: 300,
         thumbSmall: 300,
-        thumbLightbox: 1000
+        thumbLightbox: 1200
 //        thumbLightbox: 750
     };
 

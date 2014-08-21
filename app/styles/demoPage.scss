@@ -1,0 +1,12 @@
+/* styling for the demonstration and testing page. */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  // we need the scroll bar at the beginning for a correct width calculation
+  overflow-y: scroll;
+}
+
+.container {
+  width: 98%;
+}
