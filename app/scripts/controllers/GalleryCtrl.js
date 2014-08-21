@@ -97,6 +97,8 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
     });
 
     $scope.$on('widthChanged', function (event, newValue) {
+      // add some safety space
+      newValue -= 5;
       LinearPartitionService.fitPics($scope.ui.album.images, {
         containerWidth: newValue,
         preferedImageHeight: Config.preferedImageHeight,
