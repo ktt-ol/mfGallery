@@ -1,7 +1,9 @@
 <div class="mf-gallery">
 
     <div class="album" ng-if="!ui.ifsMode">
-        <h1>{{ui.album.meta.name}}</h1>
+        <h1>{{ui.album.meta.name}}
+            <small ng-bind-html="ui.album.meta.description"></small>
+        </h1>
 
 
         <ol class="breadcrumb">
