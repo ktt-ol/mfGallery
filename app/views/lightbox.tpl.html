@@ -9,15 +9,15 @@
                 <div ng-if="!embedded" ng-click="close($event)" class="close" title="Close">
                     <span class="glyphicon glyphicon-remove"></span>
                 </div>
-                <div class="nav previous" ng-click="prevImage($event)" title="Previous image [ <-- ]">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
+                <div class="nav previous" ng-click="prevImage($event)" title="Previous image [ <-- ]" ng-if="ds.hasPrev()">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
                 </div>
-                <div class="nav next" ng-click="nextImage($event)" title="Next image [ --> ]">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
+                <div class="nav next" ng-click="nextImage($event)" title="Next image [ --> ]" ng-if="ds.hasNext()">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
                 </div>
                 <div class="info" ng-class="{'open': showMeta }" ng-click="toggleMeta($event)" title="show/hide more meta info  ">
                     <span class="text">{{image.name}} // {{image.exif.time | date:'dd.MM.yyyy hh:mm:ss'}}</span>
-                    <a ng-href="{{originalUrl}}"  title="Show original" class="show-original" ng-click="$event.stopPropagation()">
+                    <a ng-href="{{originalUrl}}" title="Show original" class="show-original" ng-click="$event.stopPropagation()">
                         <span class="glyphicon glyphicon-download-alt"></span>
                     </a>
 

@@ -13,13 +13,13 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
       image: '=lightbox',
       folderPath: '=',
       show: '=',
-      onNext: '&next',
-      onPrev: '&prev',
+      ds: '=',
+//      onNext: '&next',
+//      onPrev: '&prev',
       embedded: '@',
       sizeUpdate: '='
     },
     link: function (scope, element) {
-
       function resetImgStyle() {
         scope.imgSize = {
           width: '200px',
@@ -142,12 +142,16 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
 
       scope.prevImage = function (event) {
         event.stopPropagation();
-        scope.onPrev();
+        if (scope.ds.hasPrev()) {
+          scope.ds.onPrev();
+        }
       };
 
       scope.nextImage = function (event) {
         event.stopPropagation();
-        scope.onNext();
+        if (scope.ds.hasNext()) {
+          scope.ds.onNext();
+        }
       };
 
       scope.toggleMeta = function (event) {

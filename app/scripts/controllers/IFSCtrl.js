@@ -67,15 +67,21 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
 
     showInitialImage();
 
-    $scope.prevImg = function () {
-      var newIndex = ($scope.ui.currentIndex - 1 + albumData.images.length) % albumData.images.length;
-      $location.search('i', albumData.images[newIndex].name);
+    $scope.ds = {
+      onPrev: function () {
+        var newIndex = ($scope.ui.currentIndex - 1 + albumData.images.length) % albumData.images.length;
+        $location.search('i', albumData.images[newIndex].name);
+      },
+      onNext: function () {
+        var newIndex = ($scope.ui.currentIndex + 1) % albumData.images.length;
+        $location.search('i', albumData.images[newIndex].name);
+      },
+      hasPrev: function () {
+        return $scope.ui.currentIndex !== 0;
+      },
+      hasNext: function () {
+        return $scope.ui.currentIndex !== albumData.images.length - 1;
+      }
     };
-
-    $scope.nextImg = function () {
-      var newIndex = ($scope.ui.currentIndex + 1) % albumData.images.length;
-      $location.search('i', albumData.images[newIndex].name);
-    };
-
 
   });

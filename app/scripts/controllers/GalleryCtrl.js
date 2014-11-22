@@ -7,6 +7,7 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
 
     var currentAlbum = $routeParams.album || '';
     var absPath = Config.folder + '/' + currentAlbum;
+    var currentIdex = 0;
 
     function updateBreadcrumb() {
       var start = '#/a/';
@@ -69,6 +70,7 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
       $scope.lightbox.image = image;
       $scope.lightbox.folderPath = '/' + currentAlbum;
       $scope.lightbox.show = true;
+      currentIdex = findCurrentIndex();
     }
 
     /* scope vars */
@@ -131,20 +133,22 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
       return absPath + sub + '/.thumbs/' + size + '-' + imageName;
     };
 
-    $scope.prevImg = function () {
-      var index = findCurrentIndex();
-      var newIndex = (index - 1 + $scope.ui.album.images.length) % $scope.ui.album.images.length;
-      $location.search('i', $scope.ui.album.images[newIndex].name);
-    };
 
-    $scope.nextImg = function () {
-      var index = findCurrentIndex();
-      var newIndex = (index + 1) % $scope.ui.album.images.length;
-      $location.search('i', $scope.ui.album.images[newIndex].name);
+    $scope.ds = {
+      onPrev: function () {
+        var newIndex = (currentIdex - 1 + $scope.ui.album.images.length) % $scope.ui.album.images.length;
+        $location.search('i', $scope.ui.album.images[newIndex].name);
+      },
+      onNext: function () {
+        var newIndex = (currentIdex + 1) % $scope.ui.album.images.length;
+        $location.search('i', $scope.ui.album.images[newIndex].name);
+      },
+      hasPrev: function () {
+        return currentIdex !== 0;
+      },
+      hasNext: function () {
+        return currentIdex !== $scope.ui.album.images.length - 1;
+      }
     };
-
-    $scope.yeah = function (inview, name, element) {
-      console.log('yeah!', inview, name);
-      angular.element(element).unbind('scroll');
-    };
+    
   });
