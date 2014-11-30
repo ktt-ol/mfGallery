@@ -1,0 +1,27 @@
+<nav>
+    <ul class="pagination">
+        <li ng-if="hasPrevious">
+            <a ng-href="{{prevLink}}">
+                <span aria-hidden="true">«</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <li ng-if="!hasPrevious" class="disabled">
+            <span aria-hidden="true">«</span>
+        </li>
+
+        <li ng-class="current == $index ? 'active' :''" ng-repeat="p in pages">
+            <a ng-href="{{::makeLink($index)}}">{{$index + 1}}</a>
+        </li>
+
+        <li ng-if="hasNext">
+            <a ng-href="{{nextLink}}">
+                <span aria-hidden="true">»</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+        <li ng-if="!hasNext" class="disabled">
+            <span aria-hidden="true">»</span>
+        </li>
+    </ul>
+</nav>

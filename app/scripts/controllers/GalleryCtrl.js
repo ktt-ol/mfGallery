@@ -7,10 +7,10 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
 
     var currentAlbum = $routeParams.album || '';
     var absPath = Config.folder + '/' + currentAlbum;
-    var currentIdex = 0;
+    var lightboxImagePointer = 0;
 
     function updateBreadcrumb() {
-      var start = '#/a/';
+      var start = '#/a/0/';
 
       $scope.ui.breadcrumb.push({
         href: start,
@@ -38,48 +38,66 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
       }, start);
     }
 
-    function findCurrentIndex() {
-      for (var i=0; i<$scope.ui.album.images.length; i++) {
-        if ($scope.ui.album.images[i].name === $routeParams.i) {
-          return i;
-        }
-      }
-    }
-
     function getImageObj(imageName) {
       if (!imageName) {
         return null;
       }
 
-      for (var i=0; i<albumData.images.length; i++) {
-        if (albumData.images[i].name === imageName) {
-          return albumData.images[i];
+      var pageIndex, imageIndex, image;
+      for (pageIndex=0; pageIndex<albumData.pages.length; pageIndex++) {
+        var page = albumData.pages[pageIndex];
+        for (imageIndex=0; imageIndex<page.length; imageIndex++) {
+          image = page[imageIndex];
+          if (image.name === imageName) {
+            return {
+              image: image,
+              pageIndex: pageIndex,
+              imageIndex: imageIndex
+            };
+          }
         }
+
       }
 
       return null;
     }
 
-    function updateLightboxByUrl() {
-      var image = getImageObj($routeParams.i);
-      if (!image) {
+    function updatePageAndLightbox() {
+      var imageObj = getImageObj($routeParams.i);
+      if (!imageObj) {
         $scope.lightbox.show = false;
+
+        lightboxImagePointer = 0;
+        $scope.page.index = $routeParams.page;
+        $scope.page.images = albumData.pages[$scope.page.index];
+        if (!$scope.page.images) {
+          $scope.page.images = [];
+        }
         return;
       }
 
-      $scope.lightbox.image = image;
+      $scope.lightbox.image = imageObj.image;
       $scope.lightbox.folderPath = '/' + currentAlbum;
       $scope.lightbox.show = true;
-      currentIdex = findCurrentIndex();
+
+      lightboxImagePointer = imageObj.imageIndex;
+      $scope.page.index = imageObj.pageIndex;
+      $scope.page.images = albumData.pages[$scope.page.index];
     }
 
     /* scope vars */
+
+    $scope.page = {
+      index: $routeParams.page,
+      images: []
+    };
+
+    $scope.album = albumData;
 
     $scope.ui = {
       ifsMode: Config.mode === 'ifs',
       relPath: currentAlbum,
       breadcrumb: [],
-      album: albumData,
       imagesContainerWidth: 0,
       parent: currentAlbum.split('/').slice(0, -1).join('/')
     };
@@ -101,7 +119,7 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
     $scope.$on('widthChanged', function (event, newValue) {
       // add some safety space
       newValue -= 5;
-      LinearPartitionService.fitPics($scope.ui.album.images, {
+      LinearPartitionService.fitPics($scope.page.images, {
         containerWidth: newValue,
         preferedImageHeight: Config.preferedImageHeight,
         spacing: 4
@@ -109,22 +127,26 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
     });
 
     $scope.$on('$locationChangeSuccess', function () {
-      updateLightboxByUrl();
+      updatePageAndLightbox();
     });
 
     updateBreadcrumb();
-    updateLightboxByUrl();
+    updatePageAndLightbox();
 
 
     /* scope functions */
 
     $scope.makePath = function (subAlbumId) {
-      var url = '#/a/';
+      var url = '#/a/0/';
       if ($scope.ui.relPath !== '') {
         url += $scope.ui.relPath + '/';
       }
 
       return url + subAlbumId.folder;
+    };
+
+    $scope.makeImagePath = function (imageName) {
+      return '#/a/' + $scope.page.index + '/' + $scope.ui.relPath + '?i=' + imageName;
     };
 
     $scope.makeThumbUrl = function (imageName, sizeName, /*optional*/ subFolder) {
@@ -136,18 +158,35 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
 
     $scope.ds = {
       onPrev: function () {
-        var newIndex = (currentIdex - 1 + $scope.ui.album.images.length) % $scope.ui.album.images.length;
-        $location.search('i', $scope.ui.album.images[newIndex].name);
+        if (lightboxImagePointer > 0) {
+          var newIndex = (lightboxImagePointer - 1 + $scope.page.images.length) % $scope.page.images.length;
+          $location.search('i', $scope.page.images[newIndex].name);
+        } else {
+          var pageIndex = $scope.page.index - 1;
+          var len = albumData.pages[pageIndex].length;
+          $location.url('/a/' + pageIndex + '/' + currentAlbum + '?i=' + albumData.pages[pageIndex][len - 1].name);
+        }
       },
       onNext: function () {
-        var newIndex = (currentIdex + 1) % $scope.ui.album.images.length;
-        $location.search('i', $scope.ui.album.images[newIndex].name);
+        if (lightboxImagePointer < $scope.page.images.length - 1) {
+          var newIndex = (lightboxImagePointer + 1) % $scope.page.images.length;
+          $location.search('i', $scope.page.images[newIndex].name);
+        } else {
+          var pageIndex = $scope.page.index + 1;
+          $location.url('/a/' + pageIndex + '/' + currentAlbum + '?i=' + albumData.pages[pageIndex][0].name);
+        }
       },
       hasPrev: function () {
-        return currentIdex !== 0;
+        if (lightboxImagePointer > 0) {
+          return true;
+        }
+        return $scope.page.index > 0;
       },
       hasNext: function () {
-        return currentIdex !== $scope.ui.album.images.length - 1;
+        if (lightboxImagePointer < $scope.page.images.length - 1) {
+          return true;
+        }
+        return $scope.page.index < albumData.pages.length - 1;
       }
     };
     

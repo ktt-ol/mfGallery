@@ -1,8 +1,7 @@
 <div class="mf-gallery">
-
     <div class="album" ng-if="!ui.ifsMode">
-        <h1>{{ui.album.meta.name}}
-            <small ng-bind-html="ui.album.meta.description"></small>
+        <h1>{{album.meta.name}}
+            <small ng-bind-html="album.meta.description"></small>
         </h1>
 
 
@@ -10,15 +9,15 @@
             <li ng-repeat="item in ui.breadcrumb">
                 <a href="{{item.href}}">{{item.name}}</a>
             </li>
-            <li class="active">{{ui.album.meta.name || '???' }}</li>
+            <li class="active">{{album.meta.name || '???' }}</li>
         </ol>
     </div>
 
     <div class="sub-albums" ng-if="!ui.ifsMode">
         <ul class="list-inline">
-            <li ng-repeat="sub in ui.album.subDirs" class="thumbnail">
-                <a ng-href="{{makePath(sub)}}">
-                    <img ng-if="sub.cover" ng-src="{{makeThumbUrl(sub.cover, 'small', sub.folder)}}"/>
+            <li ng-repeat="sub in album.subDirs" class="thumbnail">
+                <a ng-href="{{::makePath(sub)}}">
+                    <img ng-if="sub.cover" ng-src="{{::makeThumbUrl(sub.cover, 'small', sub.folder)}}"/>
 
                     <div class="no-cover" ng-if="!sub.cover">?</div>
                     <div class="caption">
@@ -31,16 +30,18 @@
 
 
     <div class="images">
-        <div class="no-images" ng-if="!ui.album.images.length">
+        <div class="no-images" ng-if="!page.images.length">
             Keine Fotos hier :(
         </div>
-        <ul class="list-inline" ng-show="ui.album.images.length" container-width="widthChanged">
-            <li ng-repeat="image in ui.album.images">
-                <a ng-href="#/a/{{ui.relPath}}?i={{image.name}}">
-                    <div gallery-item="image" listen-on="widthChanged" url="{{makeThumbUrl(image.name, 'small')}}"></div>
+        <ul class="list-inline" ng-show="page.images.length" container-width="widthChanged">
+            <li ng-repeat="image in page.images">
+                <a ng-href="{{::makeImagePath(image.name)}}">
+                    <div gallery-item="image" listen-on="widthChanged" url="{{::makeThumbUrl(image.name, 'small')}}"></div>
                 </a>
             </li>
         </ul>
+
+        <div pagination="album.pages" current="page.index"> </div>
     </div>
 
 

@@ -13,7 +13,14 @@ angular
     }];
 
     $routeProvider
-      .when('/a/:album*?', {
+      .when('/a/', {
+        resolve: {
+          redirectToPage0: ['$location', function ($location) {
+            $location.path('/a/0/');
+          }]
+        }
+      })
+      .when('/a/:page?/:album*?', {
         templateUrl: 'views/gallery.html',
         controller: 'GalleryCtrl',
         // don't reload if the '?' param changes
@@ -37,7 +44,7 @@ angular
             if (Config.mode === 'ifs') {
               $location.path('/f/');
             } else {
-              $location.path('/a/');
+              $location.path('/a/0/');
             }
           }]
         }
