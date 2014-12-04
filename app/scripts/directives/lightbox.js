@@ -3,7 +3,7 @@
 angular.module('mfGalleryApp').directive('lightbox', function ($window, $document, Config) {
 
   var CONFIG = {
-    margin: 20,
+    margin: 60,
     padding: 0
   };
 
@@ -14,12 +14,17 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
       folderPath: '=',
       show: '=',
       ds: '=',
-//      onNext: '&next',
-//      onPrev: '&prev',
       embedded: '@',
-      sizeUpdate: '='
+      sizeUpdate: '=',
+      margin: '@' // optional
     },
     link: function (scope, element) {
+
+      var margin = CONFIG.margin;
+      if (angular.isDefined(scope.margin)) {
+        margin = parseInt(scope.margin, 10);
+      }
+
       function resetImgStyle() {
         scope.imgSize = {
           width: '200px',
@@ -63,16 +68,18 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
           scope.$apply(function () {
             scope.imgStyle['background-image'] = 'url("' + url + '")';
             scope.imageLoaded = true;
-            var windowHWQ = $window.innerHeight / $window.innerWidth;
-            var imgHWQ = img.height / img.width;
 
-            if (windowHWQ > imgHWQ) {
-              var maxWidth = Math.min($window.innerWidth, img.width);
-              setSize(maxWidth - CONFIG.margin, img.height);
+            var widthQ = img.width / $window.innerWidth;
+            var heightQ = img.height / $window.innerHeight;
+            var width, height;
+            if (widthQ > heightQ) {
+              width = Math.min($window.innerWidth, img.width) - margin;
+              height = width * img.height / img.width;
             } else {
-              var maxHeight = Math.min($window.innerHeight, img.height);
-              setSize(img.width, maxHeight - CONFIG.margin);
+              height = Math.min($window.innerHeight, img.height) - margin;
+              width = height * img.width / img.height;
             }
+            setSize(width, height);
 
           });
 
@@ -83,7 +90,7 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
       function getAlbum() {
         var album = scope.folderPath;
         // if album present, it must start with /
-        if (angular.isString(album) && album.length > 0 && album.indexOf('/') !== 0) {
+        if (angular.isString(album) && album.length > 0 && album.indexOf('/') !== 0) {
           album = '/' + album;
         }
         return album;
