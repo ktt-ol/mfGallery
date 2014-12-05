@@ -6,7 +6,8 @@ angular.module('mfGalleryApp').directive('pagination', function () {
   return {
     scope: {
       pages: '=pagination',
-      current: '='
+      currentPage: '=',
+      currentAlbum: '='
     },
     templateUrl: 'views/pagination.tpl.html',
     link: function (scope, element) {
@@ -17,22 +18,22 @@ angular.module('mfGalleryApp').directive('pagination', function () {
       scope.nextLink = '#';
 
       scope.makeLink = function (pageIndex) {
-        return '#/a/' + pageIndex + '/';
+        return '#/a/' + pageIndex + '/' + scope.currentAlbum;
       };
 
-      scope.$watch('current', function (newValue) {
-        var current = parseInt(scope.current, 10);
-        scope.hasPrevious = current > 0;
+      scope.$watch('currentPage', function (newValue) {
+        var page = parseInt(scope.currentPage, 10);
+        scope.hasPrevious = page > 0;
 
         if (scope.hasPrevious) {
-          scope.prevLink = scope.makeLink(current - 1);
+          scope.prevLink = scope.makeLink(page - 1);
         } else {
           scope.prevLink = '#';
         }
 
-        scope.hasNext = current < scope.pages.length - 1;
+        scope.hasNext = page < scope.pages.length - 1;
         if (scope.hasNext) {
-          scope.nextLink = scope.makeLink(current + 1);
+          scope.nextLink = scope.makeLink(page + 1);
         } else {
           scope.nextLink = '#';
         }

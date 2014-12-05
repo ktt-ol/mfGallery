@@ -10,7 +10,7 @@
             <span aria-hidden="true">«</span>
         </li>
 
-        <li ng-class="current == $index ? 'active' :''" ng-repeat="p in pages">
+        <li ng-class="currentPage == $index ? 'active' :''" ng-repeat="p in pages">
             <a ng-href="{{::makeLink($index)}}">{{$index + 1}}</a>
         </li>
 
