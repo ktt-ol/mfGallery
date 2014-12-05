@@ -30,10 +30,10 @@
 
 
     <div class="images">
-        <div class="no-images" ng-if="!page.images.length">
+        <div class="no-images" ng-if="!page.images.length && !album.subDirs.length">
             Keine Fotos hier :(
         </div>
-        <ul class="list-inline" ng-show="page.images.length" container-width="widthChanged">
+        <ul class="list-inline" ng-if="page.images.length" container-width="widthChanged">
             <li ng-repeat="image in page.images">
                 <a ng-href="{{::makeImagePath(image.name)}}">
                     <div gallery-item="image" listen-on="widthChanged" url="{{::makeThumbUrl(image.name, 'small')}}"></div>
@@ -41,7 +41,7 @@
             </li>
         </ul>
 
-        <div pagination="album.pages" current-page="page.index" current-album="ui.relPath"> </div>
+        <div pagination="album.pages" current-page="page.index" current-album="ui.relPath" ng-if="page.images.length"> </div>
     </div>
 
 
