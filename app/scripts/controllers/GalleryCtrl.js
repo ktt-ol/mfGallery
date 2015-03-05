@@ -17,6 +17,10 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
         name: 'Start'
       });
 
+      // remove trailing slashes
+      if (currentAlbum.length > 0 && currentAlbum[currentAlbum.length - 1] === '/') {
+        currentAlbum = currentAlbum.substring(0, currentAlbum.length - 1);
+      }
       currentAlbum.split('/').reduce(function (prevHref, pathElement, index, splits) {
         // ignore the last item
         if (index === splits.length - 1) {

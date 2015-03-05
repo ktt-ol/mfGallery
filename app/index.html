@@ -26,29 +26,24 @@
 <div class="container">
 
 <!-- uncomment for ifs view -->
-<div class="row">
-<div class="col-md-3 col-md-push-9">
-    sidebar content
-</div>
-<div class="col-md-9 col-md-pull-3">
+<!--<div class="row">-->
+<!--<div class="col-md-3 col-md-push-9">-->
+    <!--sidebar content-->
+<!--</div>-->
+<!--<div class="col-md-9 col-md-pull-3">-->
 <!-- // -->
 
 <div class="panel panel-default mf-gallery-app" ng-app="mfGalleryApp">
-    <div class="panel-heading">
-        <h3 class="panel-title">Album</h3>
-    </div>
-    <div class="panel-body">
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to
             improve your experience.</p>
         <![endif]-->
         <div ng-view=""></div>
         <!--class="container-fluid" raus!-->
-    </div>
 </div>
 <!-- uncomment for ifs view -->
-</div>
-</div>
+<!--</div>-->
+<!--</div>-->
 <!-- // -->
 </div>
 <!-- build:js scripts/ie_extras.js -->
@@ -61,8 +56,8 @@
 <script type="text/javascript">
     var mfGalleryConfig = {
         staticPath: '',
-        preferedImageHeight: 300,
-        pageSize: 10,
+        preferedImageHeight: 250,
+        pageSize: 30,
         thumbSmall: 300,
 
 //        mode: 'ifs',

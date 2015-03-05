@@ -1,5 +1,5 @@
 .mf-gallery-app {
-
+  
   .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -8,6 +8,12 @@
   }
 
   .mf-gallery {
+    
+    h1 small {
+      display: block;
+    }
+    
+    padding: 0 15px;
 
     .modal-backdrop {
       &.in {
@@ -17,6 +23,10 @@
 
     .caption {
       margin: auto;
+
+      & div {
+        padding-right: 5px;
+      }
 
       .time {
         text-align: left;
@@ -41,7 +51,6 @@
 
       img {
         max-height: 150px;
-        max-width: 150px;
       }
 
       .no-cover {

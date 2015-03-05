@@ -4,7 +4,6 @@
             <small ng-bind-html="album.meta.description"></small>
         </h1>
 
-
         <ol class="breadcrumb">
             <li ng-repeat="item in ui.breadcrumb">
                 <a href="{{item.href}}">{{item.name}}</a>
@@ -21,7 +20,7 @@
 
                     <div class="no-cover" ng-if="!sub.cover">?</div>
                     <div class="caption">
-                        {{sub.name || sub.folder}}
+                        <div class="glyphicon glyphicon-folder-close"></div> {{sub.name || sub.folder}}
                     </div>
                 </a>
             </li>
@@ -33,6 +32,9 @@
         <div class="no-images" ng-if="!page.images.length && !album.subDirs.length">
             Keine Fotos hier :(
         </div>
+
+        <div pagination="album.pages" current-page="page.index" current-album="ui.relPath" ng-if="page.images.length"> </div>
+
         <ul class="list-inline" ng-if="page.images.length" container-width="widthChanged">
             <li ng-repeat="image in page.images">
                 <a ng-href="{{::makeImagePath(image.name)}}">
