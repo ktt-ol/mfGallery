@@ -97,11 +97,11 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
       }
 
       function makeUrl() {
-        return Config.folder + getAlbum() + '/.thumbs/' + Config.thumbLightbox + '-' + scope.image.name;
+        return Config.folder + getAlbum() + '/.thumbs/' + Config.thumbLightbox + '-' + scope.image.filename;
       }
 
       function makeOriginalUrl() {
-        return Config.folder + getAlbum() + '/' + scope.image.name;
+        return Config.folder + getAlbum() + '/' + scope.image.filename;
       }
 
       function onKeyDown(event) {

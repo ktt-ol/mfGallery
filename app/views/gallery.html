@@ -1,6 +1,6 @@
 <div class="mf-gallery">
     <div class="album" ng-if="!ui.ifsMode">
-        <h1>{{album.meta.name}}
+        <h1>{{album.meta.title}}
             <small ng-bind-html="album.meta.description"></small>
         </h1>
 
@@ -8,19 +8,21 @@
             <li ng-repeat="item in ui.breadcrumb">
                 <a href="{{item.href}}">{{item.name}}</a>
             </li>
-            <li class="active">{{album.meta.name || '???' }}</li>
+            <li class="active">{{album.meta.title || '???' }}</li>
         </ol>
     </div>
 
     <div class="sub-albums" ng-if="!ui.ifsMode">
         <ul class="list-inline">
-            <li ng-repeat="sub in album.subDirs" class="thumbnail">
+            <li ng-repeat="sub in album.subDirs" class="thumbnail"  title="{{sub.description}}">
                 <a ng-href="{{::makePath(sub)}}">
-                    <img ng-if="sub.cover" ng-src="{{::makeThumbUrl(sub.cover, 'small', sub.folder)}}"/>
+                    <img ng-if="sub.cover" ng-src="{{::makeThumbUrl(sub.cover, 'small', sub.foldername)}}"/>
 
                     <div class="no-cover" ng-if="!sub.cover">?</div>
                     <div class="caption">
-                        <div class="glyphicon glyphicon-folder-close"></div> {{sub.name || sub.folder}}
+                        <div class="glyphicon glyphicon-folder-close"></div>
+                        <span class="time">{{::sub.time | date:'dd.MM.yyyy'}}</span>
+                        <span class="name">{{::sub.title}}</span>
                     </div>
                 </a>
             </li>
@@ -37,15 +39,14 @@
 
         <ul class="list-inline" ng-if="page.images.length" container-width="widthChanged">
             <li ng-repeat="image in page.images">
-                <a ng-href="{{::makeImagePath(image.name)}}">
-                    <div gallery-item="image" listen-on="widthChanged" url="{{::makeThumbUrl(image.name, 'small')}}"></div>
+                <a ng-href="{{::makeImagePath(image.filename)}}">
+                    <div gallery-item="image" listen-on="widthChanged" url="{{::makeThumbUrl(image.filename, 'small')}}"></div>
                 </a>
             </li>
         </ul>
 
         <div pagination="album.pages" current-page="page.index" current-album="ui.relPath" ng-if="page.images.length"> </div>
     </div>
-
 
     <div lightbox="lightbox.image" folder-path="lightbox.folderPath"
          show="lightbox.show" ds="ds" margin="10"></div>

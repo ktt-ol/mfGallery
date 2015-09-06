@@ -52,7 +52,7 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
         var page = albumData.pages[pageIndex];
         for (imageIndex=0; imageIndex<page.length; imageIndex++) {
           image = page[imageIndex];
-          if (image.name === imageName) {
+          if (image.filename === imageName) {
             return {
               image: image,
               pageIndex: pageIndex,
@@ -146,7 +146,7 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
         url += $scope.ui.relPath + '/';
       }
 
-      return url + subAlbumId.folder;
+      return url + subAlbumId.foldername;
     };
 
     $scope.makeImagePath = function (imageName) {
@@ -159,25 +159,24 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
       return absPath + sub + '/.thumbs/' + size + '-' + imageName;
     };
 
-
     $scope.ds = {
       onPrev: function () {
         if (lightboxImagePointer > 0) {
           var newIndex = (lightboxImagePointer - 1 + $scope.page.images.length) % $scope.page.images.length;
-          $location.search('i', $scope.page.images[newIndex].name);
+          $location.search('i', $scope.page.images[newIndex].filename);
         } else {
           var pageIndex = $scope.page.index - 1;
           var len = albumData.pages[pageIndex].length;
-          $location.url('/a/' + pageIndex + '/' + currentAlbum + '?i=' + albumData.pages[pageIndex][len - 1].name);
+          $location.url('/a/' + pageIndex + '/' + currentAlbum + '?i=' + albumData.pages[pageIndex][len - 1].filename);
         }
       },
       onNext: function () {
         if (lightboxImagePointer < $scope.page.images.length - 1) {
           var newIndex = (lightboxImagePointer + 1) % $scope.page.images.length;
-          $location.search('i', $scope.page.images[newIndex].name);
+          $location.search('i', $scope.page.images[newIndex].filename);
         } else {
           var pageIndex = $scope.page.index + 1;
-          $location.url('/a/' + pageIndex + '/' + currentAlbum + '?i=' + albumData.pages[pageIndex][0].name);
+          $location.url('/a/' + pageIndex + '/' + currentAlbum + '?i=' + albumData.pages[pageIndex][0].filename);
         }
       },
       hasPrev: function () {
