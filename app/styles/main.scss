@@ -189,6 +189,7 @@
         $font-size: 60px;
         position: absolute;
         top: 0;
+        margin: 1px;
 
         .glyphicon {
           color: #ffffff;
@@ -267,14 +268,27 @@
             float: right;
             font-size: 20px;
             padding: 0 10px;
+            color: #fff;
+
+            * {
+              color: #fff;
+            }
+            &:hover,
+            &:hover * {
+              text-decoration: none;
+            }
           }
 
           & > * {
             opacity: 0.5;
           }
 
-          &:hover * {
-            opacity: 1;
+          &:hover {
+            @include short-transition(all);
+            background: rgba(0, 0, 0, 1);
+            * {
+              opacity: 1;
+            }
           }
 
           &.open {

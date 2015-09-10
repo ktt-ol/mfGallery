@@ -15,10 +15,13 @@
                 <div class="nav next" ng-click="nextImage($event)" title="Next image [ --> ]" ng-if="ds.hasNext()">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </div>
-                <div class="info" ng-class="{'open': showMeta }" ng-click="toggleMeta($event)" title="show/hide more meta info  ">
-                    <span class="text">{{image.name}} // {{image.exif.time | date:'dd.MM.yyyy hh:mm:ss'}}</span>
+                <div class="info" ng-class="{'open': showMeta }" ng-click="toggleMeta($event)" title="show/hide more meta info">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+
+                    <span class="text">{{image.filename}} // {{image.exif.time | date:'dd.MM.yyyy hh:mm:ss'}}</span>
                     <a ng-href="{{originalUrl}}" title="Show original" class="show-original" ng-click="$event.stopPropagation()">
                         <span class="glyphicon glyphicon-download-alt"></span>
+                        <span>Download</span>
                     </a>
 
                     <div ng-if="showMeta">
@@ -30,5 +33,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

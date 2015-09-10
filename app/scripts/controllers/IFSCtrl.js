@@ -34,7 +34,7 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
 
     function findImageIndexObjByName(imageName) {
       for (var i = 0; i < albumData.images.length; i++) {
-        if (albumData.images[i].name === imageName) {
+        if (albumData.images[i].filename === imageName) {
           return i;
         }
 
@@ -64,17 +64,16 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
       updateLightbox();
     });
 
-
     showInitialImage();
 
     $scope.ds = {
       onPrev: function () {
         var newIndex = ($scope.ui.currentIndex - 1 + albumData.images.length) % albumData.images.length;
-        $location.search('i', albumData.images[newIndex].name);
+        $location.search('i', albumData.images[newIndex].filename);
       },
       onNext: function () {
         var newIndex = ($scope.ui.currentIndex + 1) % albumData.images.length;
-        $location.search('i', albumData.images[newIndex].name);
+        $location.search('i', albumData.images[newIndex].filename);
       },
       hasPrev: function () {
         return $scope.ui.currentIndex !== 0;
