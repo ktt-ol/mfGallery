@@ -3,6 +3,8 @@
   @mixin short-transition($what) {
     transition: $what 200ms ease-in;
   }
+
+  $hover-color: #428bca;
   
   .browsehappy {
     margin: 0.2em 0;
@@ -69,20 +71,41 @@
         font-size: 4em;
       }
 
+      .image-count {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+
+        min-width: 20px;
+        min-height: 20px;
+        text-align: center;
+
+        color: #ffffff;
+        background-color: $hover-color;
+
+        opacity: 0;
+      }
+
       .caption {
         max-width: 212px;
       }
 
       li {
         vertical-align: top;
+        position: relative;
       }
 
       li:hover {
-        background-color: #428bca;
+        background-color: $hover-color;
         @include short-transition(all);
 
         a {
           text-decoration: none;
+        }
+
+        .image-count {
+          @include short-transition(all);
+          opacity: 0.8;
         }
 
         span, div {
@@ -112,8 +135,7 @@
             bottom: 0;
             width: 100%;
             min-height: 25px;
-            background-color: #428bca;
-            border-color: #428bca;
+            background-color: $hover-color;
             border-radius: 3px;
             color:#fff;
             padding: 0 5px;
@@ -129,8 +151,7 @@
         }
 
         &:hover {
-          background-color: #428bca;
-          border-color: #428bca;
+          background-color: $hover-color;
           @include short-transition(all);
 
           .gallery-image .overlay {

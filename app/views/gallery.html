@@ -17,7 +17,7 @@
             <li ng-repeat="sub in album.subDirs" class="thumbnail"  title="{{sub.description}}">
                 <a ng-href="{{::makePath(sub)}}">
                     <img ng-if="sub.cover" ng-src="{{::makeThumbUrl(sub.cover, 'small', sub.foldername)}}"/>
-
+                    <div class="image-count">{{::sub.imageCount}}</div>
                     <div class="no-cover" ng-if="!sub.cover">?</div>
                     <div class="caption">
                         <div class="glyphicon glyphicon-folder-close"></div>
