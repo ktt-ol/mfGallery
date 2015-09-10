@@ -1,4 +1,8 @@
 .mf-gallery-app {
+
+  @mixin short-transition($what) {
+    transition: $what 200ms ease-in;
+  }
   
   .browsehappy {
     margin: 0.2em 0;
@@ -57,12 +61,33 @@
 
       .no-cover {
         width: 150px;
-        height: 113px;
+        height: 150px;
         display: table-cell;
         vertical-align: middle;
         text-align: center;
         background: grey;
         font-size: 4em;
+      }
+
+      .caption {
+        max-width: 212px;
+      }
+
+      li {
+        vertical-align: top;
+      }
+
+      li:hover {
+        background-color: #428bca;
+        @include short-transition(all);
+
+        a {
+          text-decoration: none;
+        }
+
+        span, div {
+          color: #fff;
+        }
       }
     }
 
@@ -72,15 +97,45 @@
         vertical-align: middle;
 
         .gallery-image {
-          margin-bottom: 4px;
-          margin-right: 4px;
+          margin: 2px;
+          position: relative;
 
-          &.break {
-            margin-right: 0;
-          }
-
+//          &.break {
+//            margin-right: 0;
+//          }
           &.waiting {
             background: url('../images/ajax-loader.gif') center center no-repeat;
+          }
+
+          .overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            min-height: 25px;
+            background-color: #428bca;
+            border-color: #428bca;
+            border-radius: 3px;
+            color:#fff;
+            padding: 0 5px;
+            display: table;
+            
+            opacity: 0;
+
+            * {
+              display: table-cell;
+              vertical-align: middle;
+            }
+          }
+        }
+
+        &:hover {
+          background-color: #428bca;
+          border-color: #428bca;
+          @include short-transition(all);
+
+          .gallery-image .overlay {
+            opacity: 0.8;
+            @include short-transition(all);
           }
         }
       }

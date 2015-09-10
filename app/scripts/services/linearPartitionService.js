@@ -145,20 +145,22 @@ angular.module('mfGalleryApp').service('LinearPartitionService', function () {
       weights = [];
 
     for (var i = 0; i < images.length; i++) {
-      images[i].aspectRatio = images[i].width / images[i].height;
-      summedWidth += images[i].aspectRatio * options.preferedImageHeight;
+      images[i].linPart = {
+        aspectRatio: images[i].width / images[i].height
+      };
+      summedWidth += images[i].linPart.aspectRatio * options.preferedImageHeight;
     }
 
     rows = Math.round(summedWidth / options.containerWidth);
 
     if (rows < 1) {
       for (i = 0; i < images.length; i++) {
-        images[i].width = parseInt(options.preferedImageHeight * images[i].aspectRatio, 10);
-        images[i].height = options.preferedImageHeight;
+        images[i].linPart.width = parseInt(options.preferedImageHeight * images[i].linPart.aspectRatio, 10);
+        images[i].linPart.height = options.preferedImageHeight;
       }
     } else {
       for (i = 0; i < images.length; i++) {
-        weights.push(parseInt(images[i].aspectRatio * 100, 10));
+        weights.push(parseInt(images[i].linPart.aspectRatio * 100, 10));
       }
 
       partition = linearPartition(weights, rows);
@@ -179,15 +181,15 @@ angular.module('mfGalleryApp').service('LinearPartitionService', function () {
         }
 
         for (j = 0; j < rowBuffer.length; j++) {
-          summedRatios += rowBuffer[j].aspectRatio;
+          summedRatios += rowBuffer[j].linPart.aspectRatio;
         }
 
 
         for (j = 0; j < rowBuffer.length; j++) {
           var image = rowBuffer[j];
-          image.width = parseInt(rowWidth / summedRatios * image.aspectRatio, 10);
-          image.height = parseInt(rowWidth / summedRatios, 10);
-          image.break = (j === rowBuffer.length - 1);
+          image.linPart.width = parseInt(rowWidth / summedRatios * image.linPart.aspectRatio, 10);
+          image.linPart.height = parseInt(rowWidth / summedRatios, 10);
+          image.linPart.break = (j === rowBuffer.length - 1);
         }
       }
     }

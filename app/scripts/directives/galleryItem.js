@@ -9,7 +9,7 @@ angular.module('mfGalleryApp').directive('galleryItem', function () {
       listenOn: '@',
       url: '@'
     },
-    template: '<div in-view="inview($inview)" class="gallery-image waiting"></div>',
+    template: '<div in-view="inview($inview)" class="gallery-image waiting">\n    <div class="overlay">\n        <span class="name">{{::image.filename}}</span>\n        <span class="size text-right">{{::image.width}} x {{::image.height}}</span>\n    </div>\n</div>',
     replace: true,
     link: function (scope, element) {
 
@@ -17,11 +17,11 @@ angular.module('mfGalleryApp').directive('galleryItem', function () {
 
       function updateElement() {
         element.css({
-          width: scope.image.width + 'px',
-          height: scope.image.height + 'px'
+          width: scope.image.linPart.width + 'px',
+          height: scope.image.linPart.height + 'px'
         });
 
-        if (scope.image.break) {
+        if (scope.image.linPart.break) {
           element.addClass('break');
         } else {
           element.removeClass('break');
