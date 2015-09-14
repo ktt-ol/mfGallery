@@ -159,24 +159,59 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
       return absPath + sub + '/.thumbs/' + size + '-' + imageName;
     };
 
+    function getPrevImage() {
+      if (!$scope.ds.hasPrev()) {
+        return null;
+      }
+
+      if (lightboxImagePointer > 0) {
+        var newIndex = (lightboxImagePointer - 1 + $scope.page.images.length) % $scope.page.images.length;
+        return {
+          image: $scope.page.images[newIndex]
+        };
+      }
+
+      var pageIndex = $scope.page.index - 1;
+      var len = albumData.pages[pageIndex].length;
+      return {
+        pageIndex: pageIndex,
+        image: albumData.pages[pageIndex][len - 1]
+      };
+    }
+
+    function getNextImage() {
+      if (!$scope.ds.hasNext()) {
+        return null;
+      }
+
+      if (lightboxImagePointer < $scope.page.images.length - 1) {
+        var newIndex = (lightboxImagePointer + 1) % $scope.page.images.length;
+        return {
+          image: $scope.page.images[newIndex]
+        };
+      }
+      var pageIndex = $scope.page.index + 1;
+      return {
+        pageIndex: pageIndex,
+        image: albumData.pages[pageIndex][0]
+      };
+    }
+
     $scope.ds = {
       onPrev: function () {
-        if (lightboxImagePointer > 0) {
-          var newIndex = (lightboxImagePointer - 1 + $scope.page.images.length) % $scope.page.images.length;
-          $location.search('i', $scope.page.images[newIndex].filename);
+        var imageData = getPrevImage();
+        if (angular.isDefined(imageData.pageIndex)) {
+          $location.url('/a/' + imageData.pageIndex + '/' + currentAlbum + '?i=' + imageData.image.filename);
         } else {
-          var pageIndex = $scope.page.index - 1;
-          var len = albumData.pages[pageIndex].length;
-          $location.url('/a/' + pageIndex + '/' + currentAlbum + '?i=' + albumData.pages[pageIndex][len - 1].filename);
+          $location.search('i', imageData.image.filename);
         }
       },
       onNext: function () {
-        if (lightboxImagePointer < $scope.page.images.length - 1) {
-          var newIndex = (lightboxImagePointer + 1) % $scope.page.images.length;
-          $location.search('i', $scope.page.images[newIndex].filename);
+        var imageData = getNextImage();
+        if (angular.isDefined(imageData.pageIndex)) {
+          $location.url('/a/' + imageData.pageIndex + '/' + currentAlbum + '?i=' + imageData.image.filename);
         } else {
-          var pageIndex = $scope.page.index + 1;
-          $location.url('/a/' + pageIndex + '/' + currentAlbum + '?i=' + albumData.pages[pageIndex][0].filename);
+          $location.search('i', imageData.image.filename);
         }
       },
       hasPrev: function () {
@@ -190,6 +225,14 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
           return true;
         }
         return $scope.page.index < albumData.pages.length - 1;
+      },
+      getPrev: function () {
+        var prev = getPrevImage();
+        return prev && prev.image;
+      },
+      getNext: function () {
+        var next = getNextImage();
+        return next && next.image;
       }
     };
     

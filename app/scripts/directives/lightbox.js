@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mfGalleryApp').directive('lightbox', function ($window, $document, Config) {
+angular.module('mfGalleryApp').directive('lightbox', function ($window, $document, Config, loadImageWithCache) {
 
   var CONFIG = {
     margin: 60,
@@ -61,30 +61,38 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         scope.imgStyle['background-image'] = 'url(' + Config.staticPath + 'images/ajax-loader.gif)';
 
         scope.originalUrl = makeOriginalUrl();
-        var url = makeUrl();
+        var url = makeThumbUrl(scope.image.filename);
 
-        var img = new Image();
-        img.onload = function () {
-          scope.$apply(function () {
-            scope.imgStyle['background-image'] = 'url("' + url + '")';
-            scope.imageLoaded = true;
+        loadImageWithCache(url).then(function (imgInfo) {
+          preloadSideImages();
 
-            var widthQ = img.width / $window.innerWidth;
-            var heightQ = img.height / $window.innerHeight;
-            var width, height;
-            if (widthQ > heightQ) {
-              width = Math.min($window.innerWidth, img.width) - margin;
-              height = width * img.height / img.width;
-            } else {
-              height = Math.min($window.innerHeight, img.height) - margin;
-              width = height * img.width / img.height;
-            }
-            setSize(width, height);
+          scope.imgStyle['background-image'] = 'url("' + url + '")';
+          scope.imageLoaded = true;
 
-          });
+          var widthQ = imgInfo.width / $window.innerWidth;
+          var heightQ = imgInfo.height / $window.innerHeight;
+          var width, height;
+          if (widthQ > heightQ) {
+            width = Math.min($window.innerWidth, imgInfo.width) - margin;
+            height = width * imgInfo.height / imgInfo.width;
+          } else {
+            height = Math.min($window.innerHeight, imgInfo.height) - margin;
+            width = height * imgInfo.width / imgInfo.height;
+          }
+          setSize(width, height);
+        });
+      }
 
-        };
-        img.src = url;
+      function preloadSideImages() {
+        var next = scope.ds.getNext();
+        if (next) {
+          loadImageWithCache(makeThumbUrl(next.filename));
+        }
+
+        var prev = scope.ds.getPrev();
+        if (prev) {
+          loadImageWithCache(makeThumbUrl(prev.filename));
+        }
       }
 
       function getAlbum() {
@@ -96,8 +104,8 @@ angular.module('mfGalleryApp').directive('lightbox', function ($window, $documen
         return album;
       }
 
-      function makeUrl() {
-        return Config.folder + getAlbum() + '/.thumbs/' + Config.thumbLightbox + '-' + scope.image.filename;
+      function makeThumbUrl(filename) {
+        return Config.folder + getAlbum() + '/.thumbs/' + Config.thumbLightbox + '-' + filename;
       }
 
       function makeOriginalUrl() {

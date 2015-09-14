@@ -42,6 +42,16 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
       return null;
     }
 
+    function getPrevImage() {
+      var index = ($scope.ui.currentIndex - 1 + albumData.images.length) % albumData.images.length;
+      return albumData.images[index];
+    }
+
+    function getNextImage() {
+      var index = ($scope.ui.currentIndex + 1) % albumData.images.length;
+      return albumData.images[index];
+    }
+
     $scope.ui = {
       currentImage: {},
       size: albumData.images.length,
@@ -68,18 +78,22 @@ angular.module('mfGalleryApp').controller('IFSCtrl',
 
     $scope.ds = {
       onPrev: function () {
-        var newIndex = ($scope.ui.currentIndex - 1 + albumData.images.length) % albumData.images.length;
-        $location.search('i', albumData.images[newIndex].filename);
+        $location.search('i', getPrevImage().filename);
       },
       onNext: function () {
-        var newIndex = ($scope.ui.currentIndex + 1) % albumData.images.length;
-        $location.search('i', albumData.images[newIndex].filename);
+        $location.search('i', getNextImage().filename);
       },
       hasPrev: function () {
         return $scope.ui.currentIndex !== 0;
       },
       hasNext: function () {
         return $scope.ui.currentIndex !== albumData.images.length - 1;
+      },
+      getPrev: function () {
+        return getPrevImage();
+      },
+      getNext: function () {
+        return getNextImage();
       }
     };
 
