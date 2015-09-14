@@ -22,6 +22,8 @@
                     <a ng-href="{{originalUrl}}" title="Show original" class="show-original" ng-click="$event.stopPropagation()">
                         <span class="glyphicon glyphicon-download-alt"></span>
                         <span>Download</span>
+                        <br/>
+                        {{::image.width}} x {{::image.height}}
                     </a>
 
                     <div ng-if="showMeta">
