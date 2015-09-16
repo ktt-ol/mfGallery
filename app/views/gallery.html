@@ -1,4 +1,12 @@
-<div class="mf-gallery">
+<div class="alert alert-danger error-box" ng-if="::showError">
+    <h1>Oh, Oh...</h1>
+
+    <p>das Album konnte nicht gefunden werden. :(</p>
+
+    <p><a href="#/">Zurück zur Albumübersicht</a></p>
+</div>
+
+<div class="mf-gallery" ng-if="::!showError">
     <div class="album" ng-if="!ui.ifsMode">
         <h1>{{album.meta.title}}
             <small ng-bind-html="album.meta.description"></small>

@@ -113,6 +113,11 @@ angular.module('mfGalleryApp').controller('GalleryCtrl',
       imageSize: Config.thumbLightbox
     };
 
+    if (albumData === null) {
+      $scope.showError = true;
+      return;
+    }
+
     $scope.$watch('lightbox.show', function (newValue) {
       // remove the 'i' search param if the lightbox is closed
       if (!newValue && $routeParams.i) {

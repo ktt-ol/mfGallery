@@ -22,7 +22,7 @@ angular.module('mfGalleryApp').service('AlbumService', function ($http, $log, $q
         return result;
       }, function (err) {
         $log.error('Can´t load initial album', err);
-        return $q.reject(err);
+        return null;
       });
   };
 
