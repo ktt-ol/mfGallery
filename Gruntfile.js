@@ -38,9 +38,9 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
-      compass: {
+      sass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
+        tasks: ['sass:server', 'autoprefixer']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -144,34 +144,25 @@ module.exports = function (grunt) {
     },
 
     // Compiles Sass to CSS and generates necessary files if requested
-    compass: {
+    sass: {
       options: {
-        sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        generatedImagesDir: '.tmp/images/generated',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
-        relativeAssets: false,
-        assetCacheBuster: false,
-        raw: 'Sass::Script::Number.precision = 10\n'
-      },
-      dist: {
-        options: {
-          generatedImagesDir: '<%= yeoman.dist %>/images/generated',
-          // changed to production to enable the compression
-          environment: 'production',
-          // changed to dist dir, to skip the cssmin
-          cssDir: '<%= yeoman.dist %>/styles/'
-        }
+        loadPath: [
+          '<%= yeoman.app %>/styles'
+        ],
+        compass: false
       },
       server: {
-        options: {
-          debugInfo: true
+        files: {
+          '.tmp/styles/main.css' : '<%= yeoman.app %>/styles/main.scss',
+          '.tmp/styles/demoPage.css' : '<%= yeoman.app %>/styles/demoPage.scss',
+          '.tmp/styles/bootstrap-custom.css' : '<%= yeoman.app %>/styles/bootstrap-custom.scss'
+        }
+      },
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/styles/main.css' : '<%= yeoman.app %>/styles/main.scss',
+          '<%= yeoman.dist %>/styles/demoPage.css' : '<%= yeoman.app %>/styles/demoPage.scss',
+          '<%= yeoman.dist %>/styles/bootstrap-custom.css' : '<%= yeoman.app %>/styles/bootstrap-custom.scss'
         }
       }
     },
@@ -317,13 +308,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Replace Google CDN references
-    cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/*.html']
-      }
-    },
-
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -361,13 +345,13 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'compass:server'
+        'sass:server'
       ],
       test: [
-        'compass'
+        'sass'
       ],
       dist: [
-        'compass:dist',
+        'sass:dist',
         'imagemin',
         'svgmin'
       ]
@@ -445,7 +429,6 @@ module.exports = function (grunt) {
     'concat',
     'ngmin',
     'copy:dist',
-    'cdnify',
     'cssmin',
     'uglify',
     'rev',

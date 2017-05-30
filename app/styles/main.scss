@@ -61,6 +61,10 @@
 
     .sub-albums {
 
+      .thumbnail {
+        border: 0;
+      }
+
       img {
         max-height: 150px;
       }
@@ -92,6 +96,21 @@
 
       .caption {
         max-width: 212px;
+      }
+
+      ul {
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        -webkit-flex-wrap: nowrap; /* Safari */
+        flex-wrap: wrap;
+        -webkit-align-content: space-between; /* Safari */
+        justify-content: space-between;
+
+        // https://stackoverflow.com/a/34816625
+        &:after {
+          content: "";
+          flex: auto;
+        }
       }
 
       li {
