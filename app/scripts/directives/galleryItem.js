@@ -9,7 +9,7 @@ angular.module('mfGalleryApp').directive('galleryItem', function () {
       listenOn: '@',
       url: '@'
     },
-    template: '<div in-view="inview($inview)" class="gallery-image waiting">\n    <div class="overlay">\n        <span class="name">{{::image.filename}}</span>\n        <span class="date text-right">{{::image.exif.time | date:\'dd.MM.yyyy hh:mm:ss\'}}</span>\n    </div>\n</div>',
+    template: '<div in-view="inview($inview)" class="gallery-image waiting">\n    <div class="overlay">\n        <span class="name">{{::image.filename}}</span>\n        <span class="date text-right">{{::image.exif.time | date:\'dd.MM.yyyy HH:mm:ss\':\'UTC\'}}</span>\n    </div>\n</div>',
     replace: true,
     link: function (scope, element) {
 
